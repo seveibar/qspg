@@ -23,7 +23,7 @@ if (args[0] === "migrate" || args[0] === "update") {
     })
     .then(async conn => {
       await conn.destroy()
-      process.exit(1)
+      process.exit(0)
     })
 } else if (args[0] === "compile") {
   if (args.length !== 2 && args.length !== 3) {
