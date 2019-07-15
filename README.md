@@ -2,6 +2,14 @@
 
 Manage your schema, connection & migration with simple SQL scripts.
 
+1. `npm install qspg`
+2. Put SQL scripts into directory (e.g. `migrations`)
+3. Run `qspg update ./migrations`. Your database is updated!
+
+The scripts are run in alphanumeric order. Scripts are never run more than once (even if you rerun `qspg update`).
+
+## Why?
+
 For most databases, migrations can be done with serially executed migration scripts. This library enables you to quickly write a schema, and keep your database up to date without learning any custom migration tools/libraries.
 
 Simply create a folder called "migrations" and fill with SQL scripts in alphanumeric order of execution, e.g. `v01.sql`, `v02.sql`... Then execute `npx qspg update ./migrations` update your database to the latest version of your schema.
