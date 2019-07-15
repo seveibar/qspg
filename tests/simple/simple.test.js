@@ -6,7 +6,7 @@ test("should migrate and establish a connection", async t => {
   const migrationSQL = await qspg.compile(
     path.resolve(__dirname, "./migrations")
   )
-  console.log(migrationSQL)
+  t.snapshot(migrationSQL)
   t.pass("migration SQL compiled w/o error")
 })
 
@@ -21,7 +21,7 @@ test("should migrate and establish a connection (postgres must be running)", asy
     phone_number: "123456789"
   })
 
-  // await conn.destroy()
+  await conn.destroy()
 
   t.pass("didn't error, migration successful")
 })

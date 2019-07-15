@@ -56,8 +56,8 @@ const migrateAndConnect = async ({
         .toString(36)
         .slice(7)}`
 
-  const migrationSQL = compileMigration(migrationsDir)
-  const seedSQL = seedDir ? compileMigration(seedDir) : ""
+  const migrationSQL = await compileMigration(migrationsDir)
+  const seedSQL = seedDir ? await compileMigration(seedDir) : ""
 
   if (testMode)
     console.log(`\n---\nUsing Test DB: ${dbName}, User: ${user || "none"}\n---`)
@@ -94,14 +94,21 @@ const migrateAndConnect = async ({
     }
   }
 
-  // override pg.destroy so we can delete the test database
-  // const _destroy = pg.destroy
-  // pg.destroy = async () => {
-  //   await _destroy()
-  //   if (testMode) await deleteDatabase(dbName)
-  // }
-  //
-  return pg
+  if (!testMode) return pg
+
+  // override pg.destroy so we can delete the test database in test mode
+  return new Proxy(pg, {
+    get: (obj, prop) => {
+      if (prop === "destroy") {
+        return async () => {
+          await obj.destroy()
+          if (testMode) await deleteDatabase(dbName)
+        }
+      } else {
+        return obj[prop]
+      }
+    }
+  })
 }
 
 module.exports = {

@@ -64,7 +64,7 @@ module.exports = migrationsDir => {
     .sort()
     .map(
       n =>
-        `# File Name: ${n}\n\n${fs
+        `-- File Name: ${n}\n\n${fs
           .readFileSync(path.join(migrationsDir, n))
           .toString()}`
     )
