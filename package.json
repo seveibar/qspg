@@ -13,8 +13,6 @@
     "ava": "^2.2.0"
   },
   "bin": {
-    "update": "./bin/update.js",
-    "init": "./bin/init.js",
-    "compile": "./bin/compile.js"
+    "qspg": "./cli.js"
   }
 }
