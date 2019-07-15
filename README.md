@@ -19,15 +19,15 @@ import qspg from "qspg"
 import path from "path"
 
 const conn = qspg({
-  migrationsDir: path.resolve("./migrations"),
+  migrationsDir: path.resolve(__dirname, "./migrations"),
 
   // Optional: If set to true, QSPG will create a database with a randomized name, this is
-  // great for unit tests
+  // great for unit tests. Defaults to true only if USE_TEST_DB env var is set.
   testMode: false,
 
   // Optional: If seed is true and the seedDir is specified, qspg will seed the
   // database when it's created. This is best used in conjunction with testMode.
-  seedDir: path.resolve("./seed"),
+  seedDir: path.resolve(__dirname, "./seed"),
   seed: false
 })
 
@@ -55,4 +55,4 @@ You should have the following environment variables set so QSPG can connect to y
 | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `qspg update $MIGRATIONS_DIR`              | Update the database using the scripts within `$MIGRATIONS_DIR`. Updates the `db_version` appropriately.                                      |
 | `qspg compile $MIGRATIONS_DIR migrate.sql` | Compile the scripts within `$MIGRATIONS_DIR` to generate a `migrate.sql` that, when executed, runs each script and updates the `db_version`. |
-| `qspg init`                                | Creates a reference project/bootstrap project for QSPG. Highly recommended.                                                                  |
+| `qspg init package`                        | Creates a bootstrap project for QSPG where your database is an NPM module.                                                                   |
