@@ -2,9 +2,11 @@
 
 Manage your schema, connection & migration with simple SQL scripts.
 
+## Usage
+
 1. `npm install qspg`
 2. Put SQL scripts into directory (e.g. `migrations`)
-3. Run `qspg update ./migrations`. Your database is updated!
+3. Run `npm run qspg update ./migrations`. Your database is updated!
 
 The scripts are run in alphanumeric order. Scripts are never run more than once (even if you rerun `qspg update`).
 
