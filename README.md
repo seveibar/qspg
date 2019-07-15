@@ -1,4 +1,6 @@
-# QSPG: Quick Simple Postgres Schema
+# QSPG: Quick Scripts Postgres
+
+Manage your schema, connection & migration with simple SQL scripts.
 
 For most databases, migrations can be done with serially executed migration scripts. This library enables you to quickly write a schema, and keep your database up to date without learning any custom migration tools/libraries.
 
