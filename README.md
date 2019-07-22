@@ -4,9 +4,9 @@ Manage your schema, connection & migration with simple SQL scripts.
 
 ## Usage
 
-1. `npm install qspg`
-2. Put SQL scripts into directory (e.g. `migrations`)
-3. Run `npm run qspg update ./migrations`. Your database is updated!
+1.  `npm install qspg`
+2.  Put SQL scripts into directory (e.g. `migrations`)
+3.  Run `npm run qspg update ./migrations`. Your database is updated!
 
 The scripts are run in alphanumeric order. Scripts are never run more than once (even if you rerun `qspg update`).
 
@@ -41,12 +41,10 @@ const conn = qspg({
   // database when it's created. This is best used in conjunction with testMode.
   seedDir: path.resolve(__dirname, "./seed"),
   seed: false
+}).then(async conn => {
+  // Logs a table "users"
+  console.log(await conn("users").select("*"))
 })
-
-// Logs a table "users"
-conn("users")
-  .select("*")
-  .then(console.log)
 ```
 
 ## Database Connection
@@ -59,7 +57,7 @@ You should have the following environment variables set so QSPG can connect to y
 | POSTGRES_PORT        | 5432      |
 | POSTGRES_USER        | postgres  |
 | POSTGRES_PASS        |           |
-| POSTGRES_DATABASE    | postgres  |
+| POSTGRES_DB          | postgres  |
 
 ## Commands
 
