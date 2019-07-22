@@ -51,7 +51,7 @@ const migrateAndConnect = async ({
     testMode === undefined ? Boolean(process.env.USE_TEST_DB) : testMode
 
   const dbName = !testMode
-    ? process.env.POSTGRES_DB || "postgres"
+    ? process.env.POSTGRES_DB || process.env.POSTGRES_DATABASE || "postgres"
     : `testdb_${Math.random()
         .toString(36)
         .slice(7)}`
