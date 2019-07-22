@@ -41,12 +41,10 @@ const conn = qspg({
   // database when it's created. This is best used in conjunction with testMode.
   seedDir: path.resolve(__dirname, "./seed"),
   seed: false
+}).then(async conn => {
+  // Logs a table "users"
+  console.log(await conn("users").select("*"))
 })
-
-// Logs a table "users"
-conn("users")
-  .select("*")
-  .then(console.log)
 ```
 
 ## Database Connection
