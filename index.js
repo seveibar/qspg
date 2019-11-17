@@ -59,8 +59,12 @@ const migrateAndConnect = async ({
   const migrationSQL = await compileMigration(migrationsDir)
   const seedSQL = seedDir ? await compileMigration(seedDir) : ""
 
-  if (testMode)
+  if (testMode) {
     console.log(`\n---\nUsing Test DB: ${dbName}, User: ${user || "none"}\n---`)
+    // Set environment variables so future calls use the same test database
+    process.env.POSTGRES_DB = dbName
+    process.env.POSTGRES_DATABASE = dbName
+  }
 
   await createDatabase(dbName)
 
