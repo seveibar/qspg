@@ -105,6 +105,11 @@ const migrateAndConnect = async ({
     get: (obj, prop) => {
       if (prop === "destroy") {
         return async () => {
+          if (obj.destroyHooks) {
+            for (const hook of obj.destroyHooks) {
+              await hook()
+            }
+          }
           await obj.destroy()
           if (testMode) await deleteDatabase(dbName)
         }
