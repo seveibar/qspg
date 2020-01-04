@@ -101,14 +101,13 @@ const migrateAndConnect = async ({
   if (!testMode) return pg
 
   // override pg.destroy so we can delete the test database in test mode
+  pg.destroyHooks = []
   return new Proxy(pg, {
     get: (obj, prop) => {
       if (prop === "destroy") {
         return async () => {
-          if (obj.destroyHooks) {
-            for (const hook of obj.destroyHooks) {
-              await hook()
-            }
+          for (const hook of obj.destroyHooks) {
+            await hook()
           }
           await obj.destroy()
           if (testMode) await deleteDatabase(dbName)
